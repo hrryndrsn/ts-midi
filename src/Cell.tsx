@@ -14,8 +14,8 @@ interface CellState {
 const CellContainer = styled.div`
   width: 100%;
   height: 100%;
-  background: ${(props => props.theme === true ? "fff" : "#000")};
-  border: pink 1px solid ;
+  background: ${(props => props.theme === true ? "#5294e2" : "#4b5162")};
+  border: #383c4a 1px solid;
 `
 
 class Cell extends Component<CellProps, CellState> {
