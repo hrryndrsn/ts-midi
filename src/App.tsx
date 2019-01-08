@@ -1,42 +1,21 @@
 import React, { Component } from "react";
 import styled, { keyframes } from "styled-components";
 import "./App.css";
-import { threadId } from "worker_threads";
+import Row from "./Row";
 
-
-const Cell = styled.div`
-  width: 200px;
-  height: 200px;
-  background: blue;
+const MainSection = styled.div`
+  margin: 0 auto;
+  width: 90vw;
+  height: 80vh;
 `
 
 class App extends Component {
-  state = {
-    position: {
-      x: innerWidth/2,
-      y: innerHeight/2
-    },
-  };
-
-  initSamples = () => {
-    const audio = new Audio(process.env.PUBLIC_URL + '/assets/muscle-car.mp3')
-    return audio
-  }
-
-  handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    
-    const audio = this.initSamples()
-    audio.play();
-  }
-
   render() {
     return (
       <div className="App">
-        <img src={process.env.PUBLIC_URL + '/assets/pupper.jpg'}/>
-        <Cell
-          onClick={this.handleClick}
-        >derp</Cell>
-
+        <MainSection>
+          <Row />
+        </MainSection>
       </div>
     );
   }
