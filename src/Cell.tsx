@@ -8,18 +8,20 @@ interface CellProps {
 
 interface CellState {
   sampleUrl: string
+  active: boolean
 }
 
 const CellContainer = styled.div`
   width: 100%;
   height: 100%;
-  background: #4b5162;
+  background: ${(props => props.theme === true ? "fff" : "#000")};
   border: pink 1px solid ;
 `
 
 class Cell extends Component<CellProps, CellState> {
   state = {
-    sampleUrl: this.props.sampleUrl
+    sampleUrl: this.props.sampleUrl,
+    active: false,
   };
 
   initSamples = () => {
@@ -29,7 +31,15 @@ class Cell extends Component<CellProps, CellState> {
 
   handleClick = (e: React.MouseEvent<HTMLElement>) => {
     const audio = this.initSamples()
-    audio.play();
+    this.toggleActive()
+    audio.play()
+      .then(() => {
+        setTimeout(() => this.toggleActive(), 200)
+      });
+  }
+
+  toggleActive = () => {
+    this.setState({active: !this.state.active})
   }
 
   render() {
@@ -37,6 +47,7 @@ class Cell extends Component<CellProps, CellState> {
       <div className="App">
         <CellContainer
           onClick={this.handleClick}
+          theme={this.state.active}
         ></CellContainer>
 
       </div>

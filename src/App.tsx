@@ -14,7 +14,7 @@ class App extends Component {
     return (
       <div className="App">
         <MainSection>
-          <Row />
+          <Row numCells={6} sampleUrl="/assets/snare.wav"/>
         </MainSection>
       </div>
     );
