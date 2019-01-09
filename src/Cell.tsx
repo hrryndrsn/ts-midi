@@ -3,34 +3,29 @@ import styled, { keyframes } from "styled-components";
 
 
 interface CellProps {
-  sampleUrl: string
+  sample: HTMLAudioElement
 }
 
 interface CellState {
-  sampleUrl: string
-  active: boolean
+  active: boolean,
+  sample: HTMLAudioElement
 }
 
 const CellContainer = styled.div`
   width: 100%;
   height: 100%;
   background: ${(props => props.theme === true ? "#5294e2" : "#4b5162")};
-  border: #383c4a 1px solid;
 `
 
 class Cell extends Component<CellProps, CellState> {
   state = {
-    sampleUrl: this.props.sampleUrl,
     active: false,
+    sample: this.props.sample
   };
-
-  initSamples = () => {
-    const audio = new Audio(process.env.PUBLIC_URL + this.state.sampleUrl)
-    return audio
-  }
-
-  handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    const audio = this.initSamples()
+  
+  //play sound programatically
+  playSound = () => {
+    const audio = this.props.sample
     this.toggleActive()
     audio.play()
       .then(() => {
@@ -46,7 +41,7 @@ class Cell extends Component<CellProps, CellState> {
     return (
       <div className="App">
         <CellContainer
-          onClick={this.handleClick}
+          onClick={this.playSound}
           theme={this.state.active}
         ></CellContainer>
 

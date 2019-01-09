@@ -38,11 +38,21 @@ class Row extends Component<RowProps, RowState> {
     }
   }
 
+  initSample = () => {
+    const audio = new Audio(process.env.PUBLIC_URL + this.state.sampleUrl)
+    return audio
+  }
+
   render() {
     return (
       <RowContainer className="row">
         { this.state.samples.map((sample, index) => {
-            return <Cell sampleUrl={this.state.sampleUrl} key={index}/>
+            return (
+              <Cell 
+                key={index}
+                sample={this.initSample()}
+              />
+            )
           })
         }
       </RowContainer>
