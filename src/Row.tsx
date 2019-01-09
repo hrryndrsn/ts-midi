@@ -6,6 +6,7 @@ import Cell from './Cell'
 interface RowProps {
   numCells: number, 
   sampleUrl: string,
+  currentStep: number
 }
 
 interface RowState {
@@ -17,9 +18,9 @@ interface RowState {
 
 const RowContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: ${props => `repeat(${props.theme.numCells}, 1fr)`};
   width: 90vw;
-  height: 150px;
+  height: 100px;
   margin: 0 auto;
 `
 
@@ -45,12 +46,15 @@ class Row extends Component<RowProps, RowState> {
 
   render() {
     return (
-      <RowContainer className="row">
+      <RowContainer className="row" theme={{numCells: this.props.numCells}}>
         { this.state.samples.map((sample, index) => {
             return (
               <Cell 
                 key={index}
+                stepNumber={index}
+                currentStepNumber={this.props.currentStep}
                 sample={this.initSample()}
+                isActive={index === this.props.currentStep}
               />
             )
           })

@@ -13,10 +13,33 @@ const MainSection = styled.div`
 class App extends Component {
   state = {
     playing: false,
+    bpm: 120,
+    currentStep: 0,
+    numCells: 8
   }
 
   togglePlay = () => {
     this.setState({playing: !this.state.playing})
+  }
+
+  tickTimer = () => {
+    const interval = ((this.state.bpm / 60) * 1000) / this.state.numCells
+    console.log(interval)
+    setInterval(() => {
+      this.incrementStep()
+    }, interval)
+  }
+
+  incrementStep = () => {
+    if (this.state.currentStep < (this.state.numCells - 1)) {
+      this.setState({currentStep: this.state.currentStep + 1})
+    } else {
+      this.setState({currentStep: 0})
+    }
+  }
+
+  componentDidMount = () => {
+    this.tickTimer()
   }
 
   render() {
@@ -27,7 +50,11 @@ class App extends Component {
             togglePlay={this.togglePlay}
             isPlaying={this.state.playing}
           />
-          <Row numCells={6} sampleUrl="/assets/snare.wav"/>
+          <Row 
+            numCells={this.state.numCells} 
+            sampleUrl="/assets/snare.wav"
+            currentStep={this.state.currentStep}
+          />
         </MainSection>
       </div>
     );
